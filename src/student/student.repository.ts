@@ -2,9 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Student } from './entities/student.entity';
 import { School } from 'src/school/entities/school.entity';
+import { Subject } from 'src/subject/entities/subject.entity';
 
 @Injectable()
 export class studentRepository extends Repository<Student> {
+  removeBysubject(subject: Subject) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private _dataSource: DataSource) {
     super(Student, _dataSource.createEntityManager());
   }

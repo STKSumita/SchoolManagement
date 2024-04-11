@@ -68,7 +68,10 @@ export class SchoolService {
     if (!school) {
       console.error('ERROR');
     }
-    await this.studentsubjectmapRepository.removeByschool(school)
+    const subjects = await this.subjectRepository.findBySchoolid(school.id)
+    await Promise.all(subjects.map(async (subject) => {
+      await this.studentsubjectmapRepository.removeBysubject(subject)
+    }))
     await this.subjectRepository.removeByschool(school)
     await this.studentRepository.removeByschool(school)
     return await this.schoolRepository.remove(school);
